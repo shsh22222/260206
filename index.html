@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+  <meta name="theme-color" content="#ff6b9d">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <title>Self Love - 自分を愛する習慣</title>
+  <link rel="manifest" href="manifest.json">
+  <link rel="icon" type="image/svg+xml" href="icons/icon.svg">
+  <link rel="apple-touch-icon" href="icons/icon-192.png">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/animations.css">
+</head>
+<body>
+  <!-- スプラッシュスクリーン -->
+  <div id="splash" class="splash">
+    <div class="splash-content">
+      <div class="splash-heart">&#10084;</div>
+      <h1>Self Love</h1>
+      <p>自分を愛する旅を始めよう</p>
+    </div>
+  </div>
+
+  <!-- メインアプリ -->
+  <div id="app" class="app hidden">
+    <!-- ヘッダー -->
+    <header class="header">
+      <div class="header-left">
+        <div class="streak-badge" id="streakBadge">
+          <span class="streak-fire">&#128293;</span>
+          <span id="streakCount">0</span>日
+        </div>
+      </div>
+      <h1 class="header-title" id="headerTitle">Self Love</h1>
+      <div class="header-right">
+        <button class="header-btn" id="settingsBtn" aria-label="設定">
+          &#9881;
+        </button>
+      </div>
+    </header>
+
+    <!-- ページコンテナ -->
+    <main class="pages-container" id="pagesContainer">
+
+      <!-- ホーム画面 -->
+      <section class="page active" id="pageHome">
+        <div class="page-scroll">
+          <!-- 今日のグリーティング -->
+          <div class="greeting-card" id="greetingCard">
+            <p class="greeting-time" id="greetingTime">おはよう</p>
+            <p class="greeting-message" id="greetingMessage">今日も素敵なあなたでいてね</p>
+          </div>
+
+          <!-- 今日のアファメーション -->
+          <div class="card affirmation-card" id="affirmationCard">
+            <div class="card-label">今日のアファメーション</div>
+            <p class="affirmation-text" id="affirmationText"></p>
+            <div class="affirmation-actions">
+              <button class="btn-icon" id="affirmationSpeak" aria-label="読み上げ">&#128264;</button>
+              <button class="btn-icon" id="affirmationRefresh" aria-label="次へ">&#10227;</button>
+              <button class="btn-icon" id="affirmationFav" aria-label="お気に入り">&#9825;</button>
+            </div>
+          </div>
+
+          <!-- 今日の進捗 -->
+          <div class="card progress-card">
+            <div class="card-label">今日のセルフラブ</div>
+            <div class="daily-progress">
+              <div class="progress-ring-container">
+                <svg class="progress-ring" width="120" height="120">
+                  <circle class="progress-ring-bg" cx="60" cy="60" r="52" />
+                  <circle class="progress-ring-fill" id="progressRing" cx="60" cy="60" r="52" />
+                </svg>
+                <div class="progress-ring-text">
+                  <span id="progressPercent">0</span>%
+                </div>
+              </div>
+              <div class="progress-tasks">
+                <div class="task-check" data-task="affirmation">
+                  <span class="check-circle" id="checkAffirmation"></span>
+                  <span>アファメーション</span>
+                </div>
+                <div class="task-check" data-task="journal">
+                  <span class="check-circle" id="checkJournal"></span>
+                  <span>ジャーナル</span>
+                </div>
+                <div class="task-check" data-task="challenge">
+                  <span class="check-circle" id="checkChallenge"></span>
+                  <span>チャレンジ</span>
+                </div>
+                <div class="task-check" data-task="mirror">
+                  <span class="check-circle" id="checkMirror"></span>
+                  <span>ミラーワーク</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- クイックアクション -->
+          <div class="quick-actions">
+            <button class="quick-action-btn" data-page="affirmation">
+              <span class="qa-icon">&#10024;</span>
+              <span class="qa-label">アファメーション</span>
+            </button>
+            <button class="quick-action-btn" data-page="journal">
+              <span class="qa-icon">&#128214;</span>
+              <span class="qa-label">ジャーナル</span>
+            </button>
+            <button class="quick-action-btn" data-page="challenge">
+              <span class="qa-icon">&#127942;</span>
+              <span class="qa-label">チャレンジ</span>
+            </button>
+            <button class="quick-action-btn" data-page="mirror">
+              <span class="qa-icon">&#129782;</span>
+              <span class="qa-label">ミラーワーク</span>
+            </button>
+          </div>
+
+          <!-- 名言カード -->
+          <div class="card quote-card">
+            <div class="card-label">今日の名言</div>
+            <blockquote class="quote-text" id="quoteText"></blockquote>
+            <cite class="quote-author" id="quoteAuthor"></cite>
+          </div>
+        </div>
+      </section>
+
+      <!-- アファメーション画面 -->
+      <section class="page" id="pageAffirmation">
+        <div class="page-scroll">
+          <div class="page-header-space"></div>
+          <div class="affirmation-deck" id="affirmationDeck">
+            <div class="deck-instruction">カードをスワイプして次へ</div>
+            <div class="deck-cards" id="deckCards"></div>
+            <div class="deck-controls">
+              <button class="deck-btn" id="deckPrev">&#8592;</button>
+              <button class="deck-btn deck-btn-primary" id="deckSayIt">声に出して言う</button>
+              <button class="deck-btn" id="deckNext">&#8594;</button>
+            </div>
+            <div class="deck-counter">
+              <span id="deckCurrent">1</span> / <span id="deckTotal">1</span>
+            </div>
+          </div>
+
+          <!-- カスタムアファメーション -->
+          <div class="card">
+            <div class="card-label">自分だけのアファメーションを作る</div>
+            <div class="custom-affirmation">
+              <textarea id="customAffirmation" class="input-textarea" placeholder="私は..." rows="3"></textarea>
+              <button class="btn btn-primary" id="addCustomAffirmation">追加する</button>
+            </div>
+          </div>
+
+          <!-- お気に入りアファメーション -->
+          <div class="card">
+            <div class="card-label">お気に入り</div>
+            <div class="fav-list" id="favAffirmations">
+              <p class="empty-state">お気に入りはまだありません</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ジャーナル画面 -->
+      <section class="page" id="pageJournal">
+        <div class="page-scroll">
+          <div class="page-header-space"></div>
+
+          <!-- 今日のプロンプト -->
+          <div class="card journal-prompt-card">
+            <div class="card-label">今日のジャーナルテーマ</div>
+            <p class="journal-prompt" id="journalPrompt"></p>
+            <button class="btn-text" id="newPrompt">別のテーマにする &#10227;</button>
+          </div>
+
+          <!-- ジャーナルエントリ -->
+          <div class="card">
+            <div class="card-label">今日の記録</div>
+            <div class="journal-entry">
+              <div class="mood-selector">
+                <span class="mood-label">今の気分：</span>
+                <div class="mood-options" id="moodOptions">
+                  <button class="mood-btn" data-mood="wonderful">&#129321;<br><small>最高</small></button>
+                  <button class="mood-btn" data-mood="good">&#128522;<br><small>良い</small></button>
+                  <button class="mood-btn" data-mood="neutral">&#128528;<br><small>普通</small></button>
+                  <button class="mood-btn" data-mood="low">&#128532;<br><small>沈み</small></button>
+                  <button class="mood-btn" data-mood="tough">&#128557;<br><small>辛い</small></button>
+                </div>
+              </div>
+              <textarea id="journalText" class="input-textarea" placeholder="今日の自分に向けて書いてみよう..." rows="6"></textarea>
+
+              <div class="gratitude-section">
+                <div class="card-label">自分への感謝 3つ</div>
+                <input type="text" class="input-text" id="gratitude1" placeholder="1. 今日の自分に感謝すること...">
+                <input type="text" class="input-text" id="gratitude2" placeholder="2. 自分の好きなところ...">
+                <input type="text" class="input-text" id="gratitude3" placeholder="3. 自分を褒めたいこと...">
+              </div>
+
+              <button class="btn btn-primary btn-full" id="saveJournal">保存する &#10084;</button>
+            </div>
+          </div>
+
+          <!-- 過去のエントリ -->
+          <div class="card">
+            <div class="card-label">過去の記録</div>
+            <div class="journal-history" id="journalHistory">
+              <p class="empty-state">まだ記録がありません</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- チャレンジ画面 -->
+      <section class="page" id="pageChallenge">
+        <div class="page-scroll">
+          <div class="page-header-space"></div>
+
+          <!-- 今日のチャレンジ -->
+          <div class="card challenge-today-card">
+            <div class="card-label">今日のセルフラブチャレンジ</div>
+            <div class="challenge-content" id="challengeContent">
+              <div class="challenge-icon" id="challengeIcon">&#127775;</div>
+              <h3 class="challenge-title" id="challengeTitle"></h3>
+              <p class="challenge-desc" id="challengeDesc"></p>
+              <div class="challenge-timer" id="challengeTimer"></div>
+              <button class="btn btn-primary btn-full" id="completeChallenge">チャレンジ完了!</button>
+            </div>
+          </div>
+
+          <!-- 7日間チャレンジ -->
+          <div class="card">
+            <div class="card-label">7日間セルフラブチャレンジ</div>
+            <div class="weekly-challenge" id="weeklyChallenge"></div>
+          </div>
+
+          <!-- 達成バッジ -->
+          <div class="card">
+            <div class="card-label">獲得バッジ</div>
+            <div class="badges-grid" id="badgesGrid"></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ミラーワーク画面 -->
+      <section class="page" id="pageMirror">
+        <div class="page-scroll">
+          <div class="page-header-space"></div>
+
+          <div class="mirror-intro card">
+            <div class="card-label">ミラーワーク</div>
+            <p>鏡の中の自分に向かって、愛を込めた言葉を伝えるワークです。</p>
+            <p class="mirror-tip">スマホのインカメラを鏡代わりに使ってもOK!</p>
+          </div>
+
+          <!-- ミラーワークセッション -->
+          <div class="mirror-session card">
+            <div class="mirror-steps" id="mirrorSteps">
+              <div class="mirror-step active" data-step="1">
+                <div class="step-number">1</div>
+                <h3>深呼吸</h3>
+                <p>目を閉じて、3回深呼吸をしましょう</p>
+                <div class="breathing-guide" id="breathingGuide">
+                  <div class="breath-circle" id="breathCircle"></div>
+                  <p class="breath-text" id="breathText">タップで開始</p>
+                </div>
+                <button class="btn btn-primary" id="startBreathing">深呼吸を始める</button>
+              </div>
+
+              <div class="mirror-step" data-step="2">
+                <div class="step-number">2</div>
+                <h3>自分を見つめる</h3>
+                <p>鏡（またはインカメラ）で自分の目を見つめてください</p>
+                <div class="mirror-frame" id="mirrorFrame">
+                  <div class="mirror-placeholder">
+                    <span>&#129782;</span>
+                    <p>ここに自分の顔を映して</p>
+                  </div>
+                </div>
+                <button class="btn btn-secondary" id="openCamera">カメラを使う</button>
+                <button class="btn btn-primary" id="mirrorReady">準備できた</button>
+              </div>
+
+              <div class="mirror-step" data-step="3">
+                <div class="step-number">3</div>
+                <h3>愛の言葉を伝える</h3>
+                <p>画面に表示される言葉を、自分の目を見ながら声に出して言いましょう</p>
+                <div class="mirror-phrase" id="mirrorPhrase">
+                  <p class="phrase-text" id="phraseText"></p>
+                </div>
+                <div class="phrase-controls">
+                  <button class="btn btn-secondary" id="prevPhrase">前へ</button>
+                  <span class="phrase-counter" id="phraseCounter">1/5</span>
+                  <button class="btn btn-primary" id="nextPhrase">次へ</button>
+                </div>
+              </div>
+
+              <div class="mirror-step" data-step="4">
+                <div class="step-number">&#10084;</div>
+                <h3>おつかれさま</h3>
+                <p class="mirror-complete-msg">今日も自分を愛する時間を取れたね。素晴らしい!</p>
+                <div class="mirror-complete-hearts" id="mirrorHearts"></div>
+                <button class="btn btn-primary" id="mirrorDone">完了</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 記録画面 -->
+      <section class="page" id="pageStats">
+        <div class="page-scroll">
+          <div class="page-header-space"></div>
+
+          <!-- カレンダー -->
+          <div class="card">
+            <div class="card-label">アクティビティカレンダー</div>
+            <div class="calendar" id="calendar"></div>
+          </div>
+
+          <!-- 統計 -->
+          <div class="card">
+            <div class="card-label">あなたの記録</div>
+            <div class="stats-grid">
+              <div class="stat-item">
+                <div class="stat-value" id="statTotalDays">0</div>
+                <div class="stat-label">合計日数</div>
+              </div>
+              <div class="stat-item">
+                <div class="stat-value" id="statCurrentStreak">0</div>
+                <div class="stat-label">連続日数</div>
+              </div>
+              <div class="stat-item">
+                <div class="stat-value" id="statLongestStreak">0</div>
+                <div class="stat-label">最長連続</div>
+              </div>
+              <div class="stat-item">
+                <div class="stat-value" id="statJournals">0</div>
+                <div class="stat-label">ジャーナル数</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 気分の推移 -->
+          <div class="card">
+            <div class="card-label">気分の推移（直近7日）</div>
+            <div class="mood-chart" id="moodChart"></div>
+          </div>
+
+          <!-- レベル -->
+          <div class="card">
+            <div class="card-label">セルフラブレベル</div>
+            <div class="level-display">
+              <div class="level-badge" id="levelBadge">
+                <span class="level-number" id="levelNumber">1</span>
+              </div>
+              <div class="level-info">
+                <div class="level-title" id="levelTitle">セルフラブの芽生え</div>
+                <div class="level-bar-container">
+                  <div class="level-bar" id="levelBar"></div>
+                </div>
+                <div class="level-exp"><span id="levelExp">0</span> / <span id="levelExpMax">100</span> XP</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- ナビゲーションバー -->
+    <nav class="nav-bar" id="navBar">
+      <button class="nav-item active" data-page="home">
+        <span class="nav-icon">&#127968;</span>
+        <span class="nav-label">ホーム</span>
+      </button>
+      <button class="nav-item" data-page="affirmation">
+        <span class="nav-icon">&#10024;</span>
+        <span class="nav-label">言葉</span>
+      </button>
+      <button class="nav-item" data-page="journal">
+        <span class="nav-icon">&#128214;</span>
+        <span class="nav-label">日記</span>
+      </button>
+      <button class="nav-item" data-page="challenge">
+        <span class="nav-icon">&#127942;</span>
+        <span class="nav-label">挑戦</span>
+      </button>
+      <button class="nav-item" data-page="mirror">
+        <span class="nav-icon">&#129782;</span>
+        <span class="nav-label">鏡</span>
+      </button>
+      <button class="nav-item" data-page="stats">
+        <span class="nav-icon">&#128200;</span>
+        <span class="nav-label">記録</span>
+      </button>
+    </nav>
+  </div>
+
+  <!-- 設定モーダル -->
+  <div class="modal" id="settingsModal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2>設定</h2>
+        <button class="modal-close" id="closeSettings">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div class="setting-item">
+          <label class="setting-label">名前</label>
+          <input type="text" class="input-text" id="settingName" placeholder="あなたの名前">
+        </div>
+        <div class="setting-item">
+          <label class="setting-label">リマインダー</label>
+          <div class="toggle-switch">
+            <input type="checkbox" id="settingReminder">
+            <label for="settingReminder" class="toggle-label"></label>
+          </div>
+        </div>
+        <div class="setting-item">
+          <label class="setting-label">リマインダー時間</label>
+          <input type="time" class="input-text" id="settingReminderTime" value="08:00">
+        </div>
+        <div class="setting-item">
+          <label class="setting-label">テーマ</label>
+          <div class="theme-options" id="themeOptions">
+            <button class="theme-btn active" data-theme="sakura">&#127800; 桜</button>
+            <button class="theme-btn" data-theme="ocean">&#127754; 海</button>
+            <button class="theme-btn" data-theme="forest">&#127795; 森</button>
+            <button class="theme-btn" data-theme="sunset">&#127749; 夕焼</button>
+            <button class="theme-btn" data-theme="night">&#127769; 夜空</button>
+          </div>
+        </div>
+        <button class="btn btn-primary btn-full" id="saveSettings">保存</button>
+        <button class="btn btn-secondary btn-full" id="exportData">データをエクスポート</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- トースト通知 -->
+  <div class="toast-container" id="toastContainer"></div>
+
+  <!-- お祝いオーバーレイ -->
+  <div class="celebration-overlay" id="celebrationOverlay">
+    <div class="celebration-content" id="celebrationContent"></div>
+  </div>
+
+  <script src="js/data.js"></script>
+  <script src="js/storage.js"></script>
+  <script src="js/app.js"></script>
+  <script src="js/affirmation.js"></script>
+  <script src="js/journal.js"></script>
+  <script src="js/challenge.js"></script>
+  <script src="js/mirror.js"></script>
+  <script src="js/stats.js"></script>
+
+  <!-- Service Worker 登録 -->
+  <script>
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('sw.js').catch(() => {});
+    }
+  </script>
+</body>
+</html>
