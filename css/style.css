@@ -361,6 +361,44 @@ body {
   gap: 16px;
 }
 
+/* ===== Parallel Prompt Card ===== */
+.parallel-card {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.parallel-title {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--text);
+}
+
+.parallel-message {
+  font-size: 0.95rem;
+  color: var(--text-light);
+}
+
+.parallel-hint {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  background: var(--bg);
+  border-radius: 12px;
+  padding: 10px 12px;
+  border: 1px dashed var(--border);
+}
+
+.parallel-actions {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.parallel-actions .btn {
+  flex: 1;
+  min-width: 140px;
+}
+
 .btn-icon {
   background: var(--bg);
   border: 1px solid var(--border);
