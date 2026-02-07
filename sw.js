@@ -1,19 +1,19 @@
-const CACHE_NAME = 'selflove-v1';
+const CACHE_NAME = 'selflove-v2';
 const ASSETS = [
-  '/',
-  '/index.html',
-  '/css/style.css',
-  '/css/animations.css',
-  '/js/data.js',
-  '/js/storage.js',
-  '/js/app.js',
-  '/js/affirmation.js',
-  '/js/journal.js',
-  '/js/challenge.js',
-  '/js/mirror.js',
-  '/js/stats.js',
-  '/manifest.json',
-  '/icons/icon.svg'
+  './',
+  './index.html',
+  './css/style.css',
+  './css/animations.css',
+  './js/data.js',
+  './js/storage.js',
+  './js/app.js',
+  './js/affirmation.js',
+  './js/journal.js',
+  './js/challenge.js',
+  './js/mirror.js',
+  './js/stats.js',
+  './manifest.json',
+  './icons/icon.svg'
 ];
 
 self.addEventListener('install', (event) => {
