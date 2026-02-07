@@ -2,6 +2,7 @@
 
 const App = {
   currentPage: 'home',
+  currentParallelPrompt: null,
 
   init() {
     // Load settings & theme
@@ -34,6 +35,9 @@ const App = {
 
     // Daily affirmation on home
     this.showHomeAffirmation();
+
+    // Daily parallel prompt
+    this.showParallelPrompt();
 
     // Daily quote
     this.showDailyQuote();
@@ -188,6 +192,48 @@ const App = {
     const quote = AppData.quotes[index];
     document.getElementById('quoteText').textContent = quote.text;
     document.getElementById('quoteAuthor').textContent = '— ' + quote.author;
+  },
+
+  // ===== Parallel Prompt =====
+  showParallelPrompt() {
+    const prompts = AppData.parallelPrompts || [];
+    const refreshBtn = document.getElementById('parallelRefresh');
+    const commitBtn = document.getElementById('parallelCommit');
+
+    if (!prompts.length || !refreshBtn || !commitBtn) return;
+
+    const todaySeed = new Date().toISOString().split('T')[0];
+    const index = Math.abs(this._hashCode(todaySeed + 'parallel')) % prompts.length;
+    this.renderParallelPrompt(prompts[index]);
+
+    refreshBtn.addEventListener('click', () => {
+      const randomIndex = Math.floor(Math.random() * prompts.length);
+      this.renderParallelPrompt(prompts[randomIndex]);
+      this.animateParallelPrompt();
+    });
+
+    commitBtn.addEventListener('click', () => {
+      if (!this.currentParallelPrompt) return;
+      const hint = document.getElementById('parallelHint');
+      if (hint) {
+        hint.textContent = `選んだ一歩: ${this.currentParallelPrompt.action}`;
+      }
+      this.showToast(`今日の一歩：${this.currentParallelPrompt.action}`, 'success');
+    });
+  },
+
+  renderParallelPrompt(prompt) {
+    this.currentParallelPrompt = prompt;
+    document.getElementById('parallelTitle').textContent = prompt.title;
+    document.getElementById('parallelMessage').textContent = prompt.message;
+    document.getElementById('parallelHint').textContent = `小さな一歩: ${prompt.action}`;
+  },
+
+  animateParallelPrompt() {
+    const message = document.getElementById('parallelMessage');
+    if (!message) return;
+    message.classList.add('animate-fade-in');
+    setTimeout(() => message.classList.remove('animate-fade-in'), 300);
   },
 
   // ===== Daily Progress =====
