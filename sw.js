@@ -1,4 +1,4 @@
-const CACHE_NAME = 'selflove-v2';
+const CACHE_NAME = 'selflove-v3';
 const ASSETS = [
   './',
   './index.html',
