@@ -45,7 +45,7 @@ const Storage = {
   // ===== Settings =====
   getSettings() {
     return this._get(this.KEYS.SETTINGS) || {
-      theme: 'sakura',
+      theme: 'zen',
       reminder: false,
       reminderTime: '08:00'
     };
