@@ -87,9 +87,9 @@ const App = {
     // Update header title
     const titles = {
       home: 'Self Love',
-      affirmation: 'アファメーション',
-      journal: 'ジャーナル',
-      challenge: 'チャレンジ',
+      affirmation: '気づきの言葉',
+      journal: '内観ジャーナル',
+      challenge: 'マインドフルネス',
       mirror: 'ミラーワーク',
       stats: 'あなたの記録'
     };

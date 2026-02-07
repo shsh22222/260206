@@ -19,7 +19,7 @@
     <div class="splash-content">
       <div class="splash-heart">&#10084;</div>
       <h1>Self Love</h1>
-      <p>自分を愛する旅を始めよう</p>
+      <p>今ここにいる自分に気づく旅</p>
     </div>
   </div>
 
@@ -55,7 +55,7 @@
 
           <!-- 今日のアファメーション -->
           <div class="card affirmation-card" id="affirmationCard">
-            <div class="card-label">今日のアファメーション</div>
+            <div class="card-label">今日の気づき</div>
             <p class="affirmation-text" id="affirmationText"></p>
             <div class="affirmation-actions">
               <button class="btn-icon" id="affirmationSpeak" aria-label="読み上げ">&#128264;</button>
@@ -66,7 +66,7 @@
 
           <!-- 今日の進捗 -->
           <div class="card progress-card">
-            <div class="card-label">今日のセルフラブ</div>
+            <div class="card-label">今日の実践</div>
             <div class="daily-progress">
               <div class="progress-ring-container">
                 <svg class="progress-ring" width="120" height="120">
@@ -80,15 +80,15 @@
               <div class="progress-tasks">
                 <div class="task-check" data-task="affirmation">
                   <span class="check-circle" id="checkAffirmation"></span>
-                  <span>アファメーション</span>
+                  <span>気づきの言葉</span>
                 </div>
                 <div class="task-check" data-task="journal">
                   <span class="check-circle" id="checkJournal"></span>
-                  <span>ジャーナル</span>
+                  <span>内観ジャーナル</span>
                 </div>
                 <div class="task-check" data-task="challenge">
                   <span class="check-circle" id="checkChallenge"></span>
-                  <span>チャレンジ</span>
+                  <span>マインドフルネス</span>
                 </div>
                 <div class="task-check" data-task="mirror">
                   <span class="check-circle" id="checkMirror"></span>
@@ -102,15 +102,15 @@
           <div class="quick-actions">
             <button class="quick-action-btn" data-page="affirmation">
               <span class="qa-icon">&#10024;</span>
-              <span class="qa-label">アファメーション</span>
+              <span class="qa-label">気づきの言葉</span>
             </button>
             <button class="quick-action-btn" data-page="journal">
               <span class="qa-icon">&#128214;</span>
-              <span class="qa-label">ジャーナル</span>
+              <span class="qa-label">内観</span>
             </button>
             <button class="quick-action-btn" data-page="challenge">
-              <span class="qa-icon">&#127942;</span>
-              <span class="qa-label">チャレンジ</span>
+              <span class="qa-icon">&#129502;</span>
+              <span class="qa-label">実践</span>
             </button>
             <button class="quick-action-btn" data-page="mirror">
               <span class="qa-icon">&#129782;</span>
@@ -120,7 +120,7 @@
 
           <!-- 名言カード -->
           <div class="card quote-card">
-            <div class="card-label">今日の名言</div>
+            <div class="card-label">今日のことば</div>
             <blockquote class="quote-text" id="quoteText"></blockquote>
             <cite class="quote-author" id="quoteAuthor"></cite>
           </div>
@@ -146,9 +146,9 @@
 
           <!-- カスタムアファメーション -->
           <div class="card">
-            <div class="card-label">自分だけのアファメーションを作る</div>
+            <div class="card-label">自分だけの言葉を作る</div>
             <div class="custom-affirmation">
-              <textarea id="customAffirmation" class="input-textarea" placeholder="私は..." rows="3"></textarea>
+              <textarea id="customAffirmation" class="input-textarea" placeholder="今ここで感じていること..." rows="3"></textarea>
               <button class="btn btn-primary" id="addCustomAffirmation">追加する</button>
             </div>
           </div>
@@ -170,32 +170,32 @@
 
           <!-- 今日のプロンプト -->
           <div class="card journal-prompt-card">
-            <div class="card-label">今日のジャーナルテーマ</div>
+            <div class="card-label">今日の内観テーマ</div>
             <p class="journal-prompt" id="journalPrompt"></p>
             <button class="btn-text" id="newPrompt">別のテーマにする &#10227;</button>
           </div>
 
           <!-- ジャーナルエントリ -->
           <div class="card">
-            <div class="card-label">今日の記録</div>
+            <div class="card-label">今日の観察</div>
             <div class="journal-entry">
               <div class="mood-selector">
-                <span class="mood-label">今の気分：</span>
+                <span class="mood-label">今の心の天気：</span>
                 <div class="mood-options" id="moodOptions">
-                  <button class="mood-btn" data-mood="wonderful">&#129321;<br><small>最高</small></button>
-                  <button class="mood-btn" data-mood="good">&#128522;<br><small>良い</small></button>
-                  <button class="mood-btn" data-mood="neutral">&#128528;<br><small>普通</small></button>
-                  <button class="mood-btn" data-mood="low">&#128532;<br><small>沈み</small></button>
-                  <button class="mood-btn" data-mood="tough">&#128557;<br><small>辛い</small></button>
+                  <button class="mood-btn" data-mood="wonderful">&#9728;&#65039;<br><small>快晴</small></button>
+                  <button class="mood-btn" data-mood="good">&#127780;&#65039;<br><small>晴れ</small></button>
+                  <button class="mood-btn" data-mood="neutral">&#9729;&#65039;<br><small>曇り</small></button>
+                  <button class="mood-btn" data-mood="low">&#127783;&#65039;<br><small>雨</small></button>
+                  <button class="mood-btn" data-mood="tough">&#9928;&#65039;<br><small>嵐</small></button>
                 </div>
               </div>
-              <textarea id="journalText" class="input-textarea" placeholder="今日の自分に向けて書いてみよう..." rows="6"></textarea>
+              <textarea id="journalText" class="input-textarea" placeholder="今、頭の中を流れている思考や、体が感じていることをそのまま書いてみよう..." rows="6"></textarea>
 
               <div class="gratitude-section">
-                <div class="card-label">自分への感謝 3つ</div>
-                <input type="text" class="input-text" id="gratitude1" placeholder="1. 今日の自分に感謝すること...">
-                <input type="text" class="input-text" id="gratitude2" placeholder="2. 自分の好きなところ...">
-                <input type="text" class="input-text" id="gratitude3" placeholder="3. 自分を褒めたいこと...">
+                <div class="card-label">今日気づいたこと 3つ</div>
+                <input type="text" class="input-text" id="gratitude1" placeholder="1. 自我が反応した瞬間...">
+                <input type="text" class="input-text" id="gratitude2" placeholder="2. 「今ここ」を感じた瞬間...">
+                <input type="text" class="input-text" id="gratitude3" placeholder="3. 自分に伝えたい言葉...">
               </div>
 
               <button class="btn btn-primary btn-full" id="saveJournal">保存する &#10084;</button>
@@ -219,7 +219,7 @@
 
           <!-- 今日のチャレンジ -->
           <div class="card challenge-today-card">
-            <div class="card-label">今日のセルフラブチャレンジ</div>
+            <div class="card-label">今日のマインドフルネス実践</div>
             <div class="challenge-content" id="challengeContent">
               <div class="challenge-icon" id="challengeIcon">&#127775;</div>
               <h3 class="challenge-title" id="challengeTitle"></h3>
@@ -231,7 +231,7 @@
 
           <!-- 7日間チャレンジ -->
           <div class="card">
-            <div class="card-label">7日間セルフラブチャレンジ</div>
+            <div class="card-label">7日間 目覚めのチャレンジ</div>
             <div class="weekly-challenge" id="weeklyChallenge"></div>
           </div>
 
@@ -250,7 +250,7 @@
 
           <div class="mirror-intro card">
             <div class="card-label">ミラーワーク</div>
-            <p>鏡の中の自分に向かって、愛を込めた言葉を伝えるワークです。</p>
+            <p>鏡の中の自分の目を見つめて、思考の向こう側にいる「本当の自分」と出会うワークです。</p>
             <p class="mirror-tip">スマホのインカメラを鏡代わりに使ってもOK!</p>
           </div>
 
@@ -259,8 +259,8 @@
             <div class="mirror-steps" id="mirrorSteps">
               <div class="mirror-step active" data-step="1">
                 <div class="step-number">1</div>
-                <h3>深呼吸</h3>
-                <p>目を閉じて、3回深呼吸をしましょう</p>
+                <h3>今ここに帰る</h3>
+                <p>目を閉じて、3回深呼吸をしましょう。呼吸に意識を向けるだけで、「今ここ」に戻れます</p>
                 <div class="breathing-guide" id="breathingGuide">
                   <div class="breath-circle" id="breathCircle"></div>
                   <p class="breath-text" id="breathText">タップで開始</p>
@@ -270,8 +270,8 @@
 
               <div class="mirror-step" data-step="2">
                 <div class="step-number">2</div>
-                <h3>自分を見つめる</h3>
-                <p>鏡（またはインカメラ）で自分の目を見つめてください</p>
+                <h3>目の奥を見る</h3>
+                <p>鏡（またはインカメラ）で自分の目の奥を見つめてください。そこにいるのは思考ではなく、気づきそのもの</p>
                 <div class="mirror-frame" id="mirrorFrame">
                   <div class="mirror-placeholder">
                     <span>&#129782;</span>
@@ -284,8 +284,8 @@
 
               <div class="mirror-step" data-step="3">
                 <div class="step-number">3</div>
-                <h3>愛の言葉を伝える</h3>
-                <p>画面に表示される言葉を、自分の目を見ながら声に出して言いましょう</p>
+                <h3>自分に語りかける</h3>
+                <p>画面に表示される言葉を、自分の目を見ながら声に出して伝えましょう</p>
                 <div class="mirror-phrase" id="mirrorPhrase">
                   <p class="phrase-text" id="phraseText"></p>
                 </div>
@@ -299,7 +299,7 @@
               <div class="mirror-step" data-step="4">
                 <div class="step-number">&#10084;</div>
                 <h3>おつかれさま</h3>
-                <p class="mirror-complete-msg">今日も自分を愛する時間を取れたね。素晴らしい!</p>
+                <p class="mirror-complete-msg">思考の向こう側にいる自分と、つながれたね</p>
                 <div class="mirror-complete-hearts" id="mirrorHearts"></div>
                 <button class="btn btn-primary" id="mirrorDone">完了</button>
               </div>
@@ -315,7 +315,7 @@
 
           <!-- カレンダー -->
           <div class="card">
-            <div class="card-label">アクティビティカレンダー</div>
+            <div class="card-label">気づきのカレンダー</div>
             <div class="calendar" id="calendar"></div>
           </div>
 
@@ -344,13 +344,13 @@
 
           <!-- 気分の推移 -->
           <div class="card">
-            <div class="card-label">気分の推移（直近7日）</div>
+            <div class="card-label">心の天気（直近7日）</div>
             <div class="mood-chart" id="moodChart"></div>
           </div>
 
           <!-- レベル -->
           <div class="card">
-            <div class="card-label">セルフラブレベル</div>
+            <div class="card-label">意識の深まり</div>
             <div class="level-display">
               <div class="level-badge" id="levelBadge">
                 <span class="level-number" id="levelNumber">1</span>
@@ -376,15 +376,15 @@
       </button>
       <button class="nav-item" data-page="affirmation">
         <span class="nav-icon">&#10024;</span>
-        <span class="nav-label">言葉</span>
+        <span class="nav-label">気づき</span>
       </button>
       <button class="nav-item" data-page="journal">
         <span class="nav-icon">&#128214;</span>
-        <span class="nav-label">日記</span>
+        <span class="nav-label">内観</span>
       </button>
       <button class="nav-item" data-page="challenge">
-        <span class="nav-icon">&#127942;</span>
-        <span class="nav-label">挑戦</span>
+        <span class="nav-icon">&#129502;</span>
+        <span class="nav-label">実践</span>
       </button>
       <button class="nav-item" data-page="mirror">
         <span class="nav-icon">&#129782;</span>
