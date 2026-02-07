@@ -2,7 +2,7 @@
   "name": "Self Love - 自分を愛する習慣",
   "short_name": "Self Love",
   "description": "自分を愛することを絶対的なものとして定着させるためのアプリ",
-  "start_url": "/",
+  "start_url": "./",
   "display": "standalone",
   "background_color": "#fff5f7",
   "theme_color": "#ff6b9d",
