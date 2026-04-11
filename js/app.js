@@ -49,7 +49,8 @@ const App = {
   finishOnboarding() {
     const user = {
       name: document.getElementById('userName').value || 'プレイヤー',
-      role: document.getElementById('userRole').value || '管理職候補'
+      role: document.getElementById('userRole').value || '管理職候補',
+      company: document.getElementById('userCompany').value || '未設定'
     };
     MQStorage.setUser(user);
 
@@ -96,7 +97,9 @@ const App = {
   renderStatus() {
     const now = MQStorage.getScores();
     const attempts = MQStorage.getAttempts();
-    const yesterday = attempts[1]?.after || now;
+    const yesterdayDate = new Date(Date.now() - 86400000).toISOString().slice(0, 10);
+    const yesterdayAttempt = attempts.find(a => (a.at || '').slice(0, 10) === yesterdayDate);
+    const yesterday = yesterdayAttempt?.after || now;
     const week = attempts.slice(0,7);
     const weeklyAvg = { ...now };
     Object.keys(weeklyAvg).forEach(k => {
@@ -166,7 +169,7 @@ const App = {
       return `<div class="status-row"><span>${c.userLabel}</span><span class="delta up">${d>=0?'+':''}${d}</span></div>`;
     }).join('');
     document.getElementById('resultDeltas').innerHTML = deltas;
-    document.getElementById('resultExplain').textContent = '今回の判断は、期待値と責任分界を明確にした点が強みです。';
+    document.getElementById('resultExplain').textContent = '今回の判断は、期待値と責任分界を明確にした点が強みです。メタファー上の攻略行動を、実務行動に1つ翻訳して明日試しましょう。';
 
     const topGrow = Object.keys(r.impact)[0];
     const c = MQData.competencies.find(x=>x.id===topGrow);
@@ -199,11 +202,18 @@ const App = {
   renderAdmin() {
     const attempts = MQStorage.getAttempts();
     const scores = MQStorage.getScores();
+    const weak = Object.entries(scores).sort((a, b) => a[1] - b[1]).slice(0, 3)
+      .map(([id]) => MQData.competencies.find(c => c.id === id)?.adminLabel)
+      .filter(Boolean)
+      .join(' / ');
+    const user = MQStorage.getUser();
     const kpi = document.getElementById('adminKpi');
     kpi.innerHTML = `
       <div class="kpi"><span>対象者</span><strong>1名（MVP）</strong></div>
       <div class="kpi"><span>総攻略数</span><strong>${attempts.length}</strong></div>
       <div class="kpi"><span>今週実施</span><strong>${attempts.slice(0,7).length}</strong></div>
+      <div class="kpi"><span>要フォロー能力</span><strong>${weak || '未実施'}</strong></div>
+      <div class="kpi"><span>所属</span><strong>${user?.company || '未設定'}</strong></div>
       <div class="kpi"><span>主要テーマ</span><strong>${attempts[0]?.theme || '未実施'}</strong></div>`;
 
     const themes = attempts.reduce((acc,a)=>{acc[a.theme]=(acc[a.theme]||0)+1;return acc;},{});
@@ -231,6 +241,16 @@ const App = {
     this.renderQuestList();
     this.renderLogs();
     this.renderAdmin();
+    this.renderGuild();
+  },
+
+  renderGuild() {
+    const attempts = MQStorage.getAttempts();
+    const latest = attempts[0];
+    const guildQuest = latest
+      ? MQData.quests.find(q => q.id === latest.questId)?.title
+      : this.getTodayQuest().title;
+    document.getElementById('guildQuest').textContent = guildQuest;
   }
 };
 

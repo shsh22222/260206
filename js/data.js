@@ -18,31 +18,37 @@ const MQData = (() => {
     { title:'炎上前夜のボス戦', theme:'難局対応', difficulty:'上級', situation:'部門横断PJで認識ズレ、遅延兆候。', questions:['最優先調整先は？','見落としリスクは？'], options:[['全体会議を即開催',{boss_battle:2,expect_align:2}],['担当者に丸投げ',{teamplay:-1,boss_battle:-1}],['まずゴール再定義と責任線を整理',{boss_battle:3,quest_grasp:2,human_judge:1}]] }
   ];
 
-  const themes = ['AI判断', '上司部下', '報連相', '1on1', '期待値調整', '難局対応'];
+  const themes = ['AI判断', '上司部下', '報連相', '1on1', '期待値調整', '難局対応', '目的設定'];
   const difficulties = ['初級', '中級', '上級'];
   const quests = [];
   let id = 1;
   for (const b of baseQuests) quests.push({ id: id++, ...b, durationMin: 5 });
 
-  for (const theme of themes) {
+  // MVPは20〜30本の想定に合わせ、合計24本になるように生成
+  for (const theme of themes.slice(0, 7)) {
     for (const diff of difficulties) {
-      for (let i = 0; i < 2; i++) {
-        const c = competencies[(id + i) % competencies.length].id;
-        quests.push({
-          id: id++,
-          title: `${theme}クエスト ${id}`,
-          theme,
-          difficulty: diff,
-          durationMin: diff === '上級' ? 7 : 4,
-          situation: `${theme}に関する判断で認識ズレが発生。現場負荷を増やさずに前進させる。`,
-          questions: ['このクエストの本当のゴールは何か', '明日、現場で1つだけ変えるなら何か'],
-          options: [
-            ['とりあえず現状維持', { [c]: 0 }],
-            ['関係者の期待値を明文化', { expect_align: 2, [c]: 2 }],
-            ['AIと人の役割を再設計', { ai_delegate: 2, human_judge: 1, [c]: 1 }]
-          ]
-        });
-      }
+      const c = competencies[(id + diff.length) % competencies.length].id;
+      quests.push({
+        id: id++,
+        title: `${theme}クエスト ${id - 1}`,
+        theme,
+        difficulty: diff,
+        durationMin: diff === '上級' ? 7 : 4,
+        situation: `${theme}に関する判断で認識ズレが発生。現場負荷を増やさずに前進させる。`,
+        questions: [
+          'このクエストの本当のゴールは何か',
+          '誰の期待値を揃える必要があるか',
+          'AIに任せてよい部分はどこか',
+          '人が最後に判断すべき部分はどこか',
+          '見落とされやすいリスクは何か',
+          '明日、現場で1つだけ変えるなら何か'
+        ],
+        options: [
+          ['とりあえず現状維持', { [c]: 0 }],
+          ['関係者の期待値を明文化', { expect_align: 2, [c]: 2 }],
+          ['AIと人の役割を再設計', { ai_delegate: 2, human_judge: 1, [c]: 1 }]
+        ]
+      });
     }
   }
 
